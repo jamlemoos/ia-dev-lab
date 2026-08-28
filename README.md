@@ -30,3 +30,5 @@ ia-dev-lab/
 |-- src/saudacao/        (hello.py + regra customizada de escopo)
 `-- tests/               (test_hello.py)
 ```
+
+> Nota: adicionar CI de testes em iteração futura.

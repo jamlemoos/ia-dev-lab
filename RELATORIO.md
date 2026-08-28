@@ -22,12 +22,15 @@ critério de validação — gerou a função tipada, com fallback e testes pyte
 Detalhes em `docs/prompts-comparacao.md`.
 
 ## 4. Obstáculo enfrentado e resolução
-**Git/GitHub push e Pull Request:** o ambiente local não tinha o `gh` autenticado, então o
-push e a abertura do PR não puderam ser concluídos automaticamente. Resolução: deixei o
-repositório local completo com a branch `feature/setup-inicial` e commits, e documentei os
-comandos exatos de publicação abaixo para rodar após autenticar.
+**Git/GitHub push e Pull Request:** o `gh` não estava instalado nem autenticado no ambiente.
+**Resolvido:** instalei o `gh` via binário em `~/.local/bin` (sem `sudo`), autentiquei com
+`gh auth login` e configurei o credential helper com `gh auth setup-git`. Repositório e PR
+publicados com sucesso.
 
-### Publicação (rodar após `gh auth login`)
+- Repositório: https://github.com/jamlemoos/ia-dev-lab
+- Pull Request: https://github.com/jamlemoos/ia-dev-lab/pull/1
+
+### Publicação (comandos usados)
 ```bash
 gh repo create ia-dev-lab --public --source=. --remote=origin --push
 git push -u origin feature/setup-inicial
@@ -36,10 +39,10 @@ gh pr create --base main --head feature/setup-inicial \
 ```
 
 ## Checklist de entrega
-- [x] Repositório com histórico de commits (local; push documentado acima)
+- [x] Repositório com histórico de commits (publicado no GitHub)
 - [x] `CLAUDE.md` + regra customizada de escopo (`src/saudacao/CLAUDE.md`)
 - [x] Estrutura organizada, `README.md` e ADR em `docs/adr/`
 - [x] `docs/prompts-comparacao.md`
-- [~] Pull Request (comandos prontos; requer `gh auth login`)
+- [x] Pull Request aberto (#1)
 - [x] `.mcp.json`
 - [x] Relatório final (este arquivo)

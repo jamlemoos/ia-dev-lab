@@ -25,12 +25,12 @@ testada sozinha.
 
 **Purpose**: a base compartilhada pelas três histórias.
 
-- [ ] T001 Criar `src/estudo/resumo.py` com `periodo_da_semana(hoje)` e `periodo_do_mes(hoje)`,
+- [x] T001 Criar `src/estudo/resumo.py` com `periodo_da_semana(hoje)` e `periodo_do_mes(hoje)`,
       devolvendo o par de datas ISO com limites inclusivos. Recebem a data de referência por
       parâmetro, nunca chamam `date.today()`.
-- [ ] T002 [P] Criar `tests/test_resumo.py` com os testes de período: semana de segunda a
+- [x] T002 [P] Criar `tests/test_resumo.py` com os testes de período: semana de segunda a
       domingo, mês do dia 1 ao último dia, e virada de mês e de ano.
-- [ ] T003 Implementar `agregar(sessoes, periodo, topico=None)` em `src/estudo/resumo.py`,
+- [x] T003 Implementar `agregar(sessoes, periodo, topico=None)` em `src/estudo/resumo.py`,
       devolvendo `{"inicio", "fim", "total_min", "topicos": [{"topico", "minutos",
       "percentual"}]}`, com filtro de período inclusivo e filtro opcional de tópico sem
       diferenciar maiúsculas.
@@ -46,17 +46,17 @@ testada sozinha.
 **Independent Test**: registrar sessões na semana corrente e rodar `estudo resumo`; o total
 precisa bater com a soma das durações.
 
-- [ ] T004 [US1] Ordenar os tópicos por `(-minutos, topico)` e calcular o percentual inteiro
+- [x] T004 [US1] Ordenar os tópicos por `(-minutos, topico)` e calcular o percentual inteiro
       de cada um em `agregar()`.
-- [ ] T005 [P] [US1] Testes de agregação em `tests/test_resumo.py`: total correto, ordem por
+- [x] T005 [P] [US1] Testes de agregação em `tests/test_resumo.py`: total correto, ordem por
       tempo, **empate resolvido em ordem alfabética** e sessões fora do período ignoradas.
-- [ ] T006 [P] [US1] Teste dos limites do período: sessão exatamente na segunda-feira e
+- [x] T006 [P] [US1] Teste dos limites do período: sessão exatamente na segunda-feira e
       exatamente no domingo entram no resumo.
-- [ ] T007 [US1] Implementar `formatar_texto(resumo)` em `src/estudo/resumo.py`, com o total
+- [x] T007 [US1] Implementar `formatar_texto(resumo)` em `src/estudo/resumo.py`, com o total
       no formato `4h30` e uma linha por tópico com minutos e percentual.
-- [ ] T008 [US1] Acrescentar o subcomando `resumo` ao `argparse` de `src/estudo/cli.py`, com
+- [x] T008 [US1] Acrescentar o subcomando `resumo` ao `argparse` de `src/estudo/cli.py`, com
       `--periodo` (padrão `semana`), sem alterar o subcomando `add`.
-- [ ] T009 [US1] Escrever `tests/test_cli_resumo.py` cobrindo o resumo da semana e o do mês
+- [x] T009 [US1] Escrever `tests/test_cli_resumo.py` cobrindo o resumo da semana e o do mês
       ponta a ponta, com arquivo temporário e código de saída 0.
 
 **Checkpoint**: a funcionalidade já é útil sozinha.
@@ -69,8 +69,8 @@ precisa bater com a soma das durações.
 
 **Independent Test**: com dois tópicos no período, filtrar por um e conferir o total.
 
-- [ ] T010 [US2] Acrescentar `--topico` ao subcomando `resumo` em `src/estudo/cli.py`.
-- [ ] T011 [P] [US2] Testes do filtro: comparação sem diferenciar maiúsculas, percentual de
+- [x] T010 [US2] Acrescentar `--topico` ao subcomando `resumo` em `src/estudo/cli.py`.
+- [x] T011 [P] [US2] Testes do filtro: comparação sem diferenciar maiúsculas, percentual de
       100% quando sobra um tópico só, e mensagem própria quando o filtro não encontra nada.
 
 ---
@@ -81,29 +81,29 @@ precisa bater com a soma das durações.
 
 **Independent Test**: rodar com `--formato json` e carregar a saída com um leitor de JSON.
 
-- [ ] T012 [US3] Implementar `formatar_json(resumo)` e o argumento `--formato`
+- [x] T012 [US3] Implementar `formatar_json(resumo)` e o argumento `--formato`
       (`texto` por padrão, `json` opcional) em `src/estudo/cli.py`.
-- [ ] T013 [P] [US3] Testes: a saída é JSON válido, traz os mesmos números da saída em texto,
+- [x] T013 [P] [US3] Testes: a saída é JSON válido, traz os mesmos números da saída em texto,
       e continua válida com o período vazio (total zero, lista vazia).
 
 ---
 
 ## Phase 5: Casos de borda e erros
 
-- [ ] T014 Tratar o período sem sessões: mensagem explícita em texto, estrutura zerada em
+- [x] T014 Tratar o período sem sessões: mensagem explícita em texto, estrutura zerada em
       JSON, código de saída 0 nos dois casos.
-- [ ] T015 [P] Testes de erro reaproveitando `armazenamento.carregar`: arquivo ausente é
+- [x] T015 [P] Testes de erro reaproveitando `armazenamento.carregar`: arquivo ausente é
       tratado como período vazio; arquivo malformado ou de versão desconhecida devolve
       mensagem clara e código 1, sem stack trace.
-- [ ] T016 Teste que garante que o comando `resumo` não altera o arquivo de dados: comparar o
+- [x] T016 Teste que garante que o comando `resumo` não altera o arquivo de dados: comparar o
       conteúdo antes e depois.
 
 ---
 
 ## Phase 6: Polish
 
-- [ ] T017 Atualizar `README.md`, `CLAUDE.md` e `docs/escopo.md` com o comando `estudo resumo`.
-- [ ] T018 Rodar `python -m pytest -q` com a suíte inteira e conferir que os testes da F1
+- [x] T017 Atualizar `README.md`, `CLAUDE.md` e `docs/escopo.md` com o comando `estudo resumo`.
+- [x] T018 Rodar `python -m pytest -q` com a suíte inteira e conferir que os testes da F1
       continuam passando.
 
 ---

@@ -52,3 +52,6 @@ duas partes saem incompatíveis.
 |---|---|
 | F1 — `estudo add` | OpenSpec |
 | F2 — `estudo resumo` | SpecKit |
+
+As duas foram implementadas. A comparação entre as ferramentas está em
+[docs/comparacao-ferramentas.md](comparacao-ferramentas.md).

@@ -17,6 +17,7 @@ pip install pytest                                    # só para rodar os testes
 |---|---|
 | `python -m src.saudacao.hello` | Executa a saudação |
 | `python -m src.estudo.cli add --data AAAA-MM-DD --inicio HH:MM --dur MIN --topico ASSUNTO` | Registra uma sessão de estudo |
+| `python -m src.estudo.cli resumo [--periodo semana\|mes] [--topico X] [--formato texto\|json]` | Resume as sessões do período |
 | `python -m pytest -q` | Roda os testes |
 
 ## Estrutura
@@ -28,10 +29,11 @@ ia-dev-lab/
 |-- docs/
 |   |-- adr/0001-escolha-da-ferramenta-de-ia.md
 |   `-- prompts-comparacao.md
-|-- openspec/            (spec da funcionalidade de registro de sessões)
+|-- openspec/            (spec do registro de sessões, via OpenSpec)
+|-- specs/               (spec do resumo agregado, via SpecKit)
 |-- src/saudacao/        (hello.py + regra customizada de escopo)
-|-- src/estudo/          (regras.py, armazenamento.py, cli.py)
-`-- tests/               (test_hello.py, test_regras.py, test_cli_add.py)
+|-- src/estudo/          (regras.py, armazenamento.py, resumo.py, cli.py)
+`-- tests/               (test_hello, test_regras, test_cli_add, test_resumo, test_cli_resumo)
 ```
 
 ## Registro de sessões de estudo
@@ -45,3 +47,16 @@ terminar no mesmo dia e não pode se sobrepor a outra já registrada (encostar �
 Os dados ficam em `data/sessoes.json`, fora do controle de versão; o formato está descrito
 em [docs/formato-sessoes.md](docs/formato-sessoes.md). Use `--arquivo` para apontar outro
 caminho.
+
+## Resumo das sessões
+
+```bash
+python -m src.estudo.cli resumo                      # semana corrente, de segunda a domingo
+python -m src.estudo.cli resumo --periodo mes        # mês corrente
+python -m src.estudo.cli resumo --topico SDD         # só um assunto (ignora maiúsculas)
+python -m src.estudo.cli resumo --formato json       # para usar em outro programa
+```
+
+Os tópicos aparecem do que consumiu mais tempo para o que consumiu menos, com empate
+resolvido em ordem alfabética. Os percentuais são arredondados para inteiro, então a soma
+pode dar 99% ou 101%. Um período sem sessões avisa isso e ainda sai com código 0.

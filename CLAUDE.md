@@ -4,11 +4,13 @@
 `ia-dev-lab` é um laboratório de prática do fluxo de desenvolvimento assistido por IA
 (configuração de ambiente, contexto de projeto, boas práticas de prompt e integração
 Git/GitHub/MCP). As funcionalidades são uma saudação em Python e o registro de sessões de estudo
-(`src/estudo/`), este último especificado com OpenSpec em `openspec/`.
+(`src/estudo/`). O registro foi especificado com OpenSpec (`openspec/`) e o resumo com
+SpecKit (`specs/` e `.specify/`).
 
 ## Comandos
 - `python -m src.saudacao.hello` -> executa a saudação padrão
 - `python -m src.estudo.cli add --data ... --inicio ... --dur ... --topico ...` -> registra sessão
+- `python -m src.estudo.cli resumo [--periodo semana|mes] [--topico X] [--formato texto|json]` -> resume o período
 - `python -m pytest -q` -> roda os testes
 - `git add -A && git commit` -> versiona alterações
 

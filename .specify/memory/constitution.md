@@ -1,50 +1,50 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# ia-dev-lab Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec antes de código
+Nenhuma funcionalidade começa pelo editor. Primeiro existe uma especificação com
+comportamento observável, requisitos e critérios de aceite; o código vem depois e serve à
+spec. Quando o código discorda da spec, um dos dois está errado e isso é resolvido por
+escrito, não no commit.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Regras de negócio isoladas da interface
+As regras vivem em funções puras, sem tocar em disco, rede ou `argparse`. A interface de
+linha de comando é uma casca fina que traduz argumentos e erros. Toda regra precisa ser
+testável sem I/O.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Só a biblioteca padrão
+O projeto não adiciona dependências de runtime. `pytest` é a única exceção, e só para
+desenvolvimento. Uma dependência nova exige justificativa escrita do que ela resolve e do
+que seria preciso escrever à mão sem ela.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Cada caso de borda vira teste
+Um caso de borda descoberto durante a especificação ou a revisão entra na suíte como teste
+nomeado, e não como comentário. Se um bug passou pelos testes, o conserto inclui o teste que
+teria pegado.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Revisão humana antes do merge
+Nenhum Pull Request entra na `main` sem revisão humana do diff completo, mesmo com a suíte
+verde. O agente propõe, o humano decide.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Compatibilidade de dados
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+O formato de `data/sessoes.json` é contrato entre funcionalidades e está descrito em
+`docs/formato-sessoes.md`. Qualquer mudança nesse formato exige subir o campo `versao`,
+atualizar o documento e tratar a leitura da versão antiga ou recusá-la com mensagem clara.
+Um arquivo de formato desconhecido nunca é sobrescrito em silêncio.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Qualidade
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Todo comando termina com código de saída 0 em sucesso e diferente de 0 em erro. Erro de uso
+vai para `stderr` com mensagem em português, sem stack trace. A suíte inteira precisa passar
+antes de qualquer commit de funcionalidade.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta constituição vale para as duas abordagens de especificação usadas no projeto (OpenSpec e
+SpecKit) e prevalece sobre a preferência de qualquer ferramenta. Emendas são feitas por
+commit próprio, explicando o que mudou e por quê. Complexidade extra precisa ser justificada
+na seção de decisões do plano.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-09-04 | **Last Amended**: 2026-09-04

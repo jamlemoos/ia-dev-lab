@@ -12,7 +12,13 @@ DURACAO_MINIMA = 5
 DURACAO_MAXIMA = 480
 MINUTOS_NO_DIA = 24 * 60
 
-ENVELOPE_VAZIO = {"versao": 1, "proximo_id": 1, "sessoes": []}
+VERSAO_DO_FORMATO = 1
+
+
+def envelope_vazio() -> dict:
+    """Envelope inicial. É uma função, e não uma constante, porque um dicionário de módulo
+    com uma lista dentro seria compartilhado por todo mundo que o copiasse de forma rasa."""
+    return {"versao": VERSAO_DO_FORMATO, "proximo_id": 1, "sessoes": []}
 
 
 class ErroDeRegra(Exception):

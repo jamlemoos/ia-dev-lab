@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from src.estudo.regras import ENVELOPE_VAZIO, ErroDeRegra, criar_sessao
+from src.estudo.regras import ErroDeRegra, criar_sessao, envelope_vazio
 
 HOJE = date(2026, 9, 4)
 
@@ -16,7 +16,7 @@ def sessao(id_, data="2026-09-03", inicio="14:00", duracao=90, topico="SDD"):
 
 
 def test_sessao_valida_recebe_id():
-    nova = criar_sessao(dict(ENVELOPE_VAZIO), "2026-09-03", "14:00", 90, "SDD", hoje=HOJE)
+    nova = criar_sessao(envelope_vazio(), "2026-09-03", "14:00", 90, "SDD", hoje=HOJE)
     assert nova == sessao(1)
 
 
@@ -105,3 +105,10 @@ def test_data_mal_formada():
 def test_hora_mal_formada():
     with pytest.raises(ErroDeRegra, match="hora inválida"):
         criar_sessao(envelope(), "2026-09-03", "14h", 60, "SDD", hoje=HOJE)
+
+
+def test_envelope_vazio_nao_e_compartilhado():
+    """Regressão: a cópia rasa de uma constante de módulo vazaria a lista entre chamadas."""
+    primeiro = envelope_vazio()
+    primeiro["sessoes"].append(sessao(1))
+    assert envelope_vazio()["sessoes"] == []

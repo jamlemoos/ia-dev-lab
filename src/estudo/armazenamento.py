@@ -7,16 +7,16 @@ import os
 import tempfile
 from pathlib import Path
 
-from .regras import ENVELOPE_VAZIO, ErroDeRegra
+from .regras import VERSAO_DO_FORMATO, ErroDeRegra, envelope_vazio
 
-VERSAO = 1
+VERSAO = VERSAO_DO_FORMATO
 CAMINHO_PADRAO = Path("data/sessoes.json")
 
 
 def carregar(caminho: Path = CAMINHO_PADRAO) -> dict:
     """Devolve o envelope guardado, ou um envelope vazio se o arquivo ainda não existe."""
     if not caminho.exists():
-        return dict(ENVELOPE_VAZIO, sessoes=[])
+        return envelope_vazio()
 
     try:
         envelope = json.loads(caminho.read_text(encoding="utf-8"))

@@ -89,3 +89,11 @@ def test_arquivo_corrompido_e_recusado(arquivo, capsys):
     arquivo.write_text("{ isso não é json", encoding="utf-8")
     assert add(arquivo) == 1
     assert "corrompido" in capsys.readouterr().err
+
+
+def test_arquivo_com_envelope_incompleto_e_recusado(arquivo, capsys):
+    """Achado no checkpoint humano: sem essa checagem, o comando quebrava com stack trace."""
+    arquivo.write_text(json.dumps({"versao": 1}), encoding="utf-8")
+    assert add(arquivo) == 1
+    erro = capsys.readouterr().err
+    assert "incompleto" in erro and "Traceback" not in erro

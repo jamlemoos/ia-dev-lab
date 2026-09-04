@@ -23,10 +23,19 @@ def carregar(caminho: Path = CAMINHO_PADRAO) -> dict:
     except json.JSONDecodeError as erro:
         raise ErroDeRegra(f"{caminho} está corrompido e não foi lido ({erro.msg})") from None
 
-    if not isinstance(envelope, dict) or envelope.get("versao") != VERSAO:
+    if not isinstance(envelope, dict):
+        raise ErroDeRegra(f"{caminho} não tem o formato esperado (deveria ser um objeto JSON)")
+    if envelope.get("versao") != VERSAO:
         raise ErroDeRegra(
             f"{caminho} está na versão {envelope.get('versao')!r}, "
             f"e esta versão do programa só lê a {VERSAO}"
+        )
+    if not isinstance(envelope.get("proximo_id"), int) or not isinstance(
+        envelope.get("sessoes"), list
+    ):
+        raise ErroDeRegra(
+            f"{caminho} está incompleto: faltam 'proximo_id' e/ou 'sessoes' "
+            f"(veja docs/formato-sessoes.md)"
         )
     return envelope
 

@@ -36,6 +36,8 @@ ia-dev-lab/
 `-- tests/               (test_hello, test_regras, test_cli_add, test_resumo, test_cli_resumo)
 ```
 
+> Nota: adicionar CI de testes em iteração futura.
+
 ## Registro de sessões de estudo
 
 ```bash
